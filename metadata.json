@@ -1,0 +1,5 @@
+{
+  "name": "Donghua University Portal Replica",
+  "description": "A 1:1 visual replica of the Donghua University Web Service Hall portal using React and Tailwind CSS.",
+  "requestFramePermissions": []
+}
