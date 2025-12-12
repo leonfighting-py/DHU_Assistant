@@ -13,7 +13,7 @@ const Header: React.FC = () => {
               Filter: 'brightness-0 invert' forces the red/black logo to be pure white.
            */}
            <img 
-             src="https://upload.wikimedia.org/wikipedia/zh/2/23/Donghua_University_logo.svg" 
+             src="图片1.png" 
              alt="东华大学 | Donghua University" 
              className="h-[42px] w-auto object-contain brightness-0 invert"
            />

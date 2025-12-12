@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   CircleDollarSign, 
@@ -20,7 +19,7 @@ const APPS = [
   { id: '3', name: '学工系统', icon: GraduationCap, bg: 'bg-red-50', text: 'text-red-400' },
   { id: '4', name: '研究生系统', icon: Flower2, bg: 'bg-blue-50', text: 'text-blue-500' },
   { id: '5', name: '协同云', icon: Cloud, bg: 'bg-orange-50', text: 'text-orange-400' },
-  { id: 'new-6', name: '校园预约', icon: Bot, bg: 'bg-orange-50', text: 'text-orange-500' },
+  { id: 'new-6', name: '校园助手', icon: Bot, bg: 'bg-red-100', text: 'text-dhu-red' },
   { id: '6', name: '个人账户管理', icon: IdCard, bg: 'bg-orange-50', text: 'text-orange-400' },
   { id: '7', name: '研究生选课考试', icon: CalendarCheck, bg: 'bg-orange-50', text: 'text-orange-500' },
   { id: '8', name: '档案投递', icon: Archive, bg: 'bg-orange-50', text: 'text-orange-500' },

@@ -45,7 +45,7 @@ const UserProfile: React.FC = () => {
              </button>
           </div>
           <div className="text-center flex-1 border-r border-gray-100">
-             <div className="text-dhu-red font-bold text-lg leading-tight">10.68元</div>
+             <div className="text-dhu-red font-bold text-lg leading-tight">0.00元</div>
              <div className="text-gray-500 text-xs mt-1">一卡通余额</div>
           </div>
           <div className="text-center flex-1">

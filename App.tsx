@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -12,6 +11,22 @@ import AgentModal from './components/AgentModal';
 
 function App() {
   const [isAgentOpen, setIsAgentOpen] = useState(false);
+  const [initialIntent, setInitialIntent] = useState<string | null>(null);
+
+  const handleOpenAgent = (intent?: string) => {
+    if (intent) {
+      setInitialIntent(intent);
+    }
+    setIsAgentOpen(true);
+  };
+
+  const handleCloseAgent = () => {
+    setIsAgentOpen(false);
+    // Reset intent after close so it doesn't persist if opened via button next time
+    setTimeout(() => {
+      setInitialIntent(null);
+    }, 300);
+  };
 
   return (
     <div className="min-h-screen bg-[#f3f4f6] pb-10 font-sans">
@@ -34,15 +49,19 @@ function App() {
           {/* Right Column (Remaining space) */}
           <div className="flex-1 flex flex-col gap-4">
              <NoticeBoard />
-             <AppFavorites onOpenAgent={() => setIsAgentOpen(true)} />
-             <RecommendedServices onOpenAgent={() => setIsAgentOpen(true)} />
+             <AppFavorites onOpenAgent={() => handleOpenAgent()} />
+             <RecommendedServices onTriggerIntent={(text) => handleOpenAgent(text)} />
           </div>
 
         </div>
       </main>
 
       {/* Campus Event Co-pilot Modal */}
-      <AgentModal isOpen={isAgentOpen} onClose={() => setIsAgentOpen(false)} />
+      <AgentModal 
+        isOpen={isAgentOpen} 
+        onClose={handleCloseAgent} 
+        initialIntent={initialIntent}
+      />
     </div>
   );
 }

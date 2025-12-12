@@ -1,67 +1,102 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
-import { MOCK_CALENDAR_DAYS } from '../constants';
 
 const CalendarWidget: React.FC = () => {
+  // Hardcoded to match Fig 2 exactly (Dec 2025)
+  // 30 Nov - 3 Jan layout
+  const CALENDAR_DAYS = [
+    { day: 30, lunar: '十一', isCurrent: false },
+    { day: 1, lunar: '十二', isCurrent: true },
+    { day: 2, lunar: '十三', isCurrent: true },
+    { day: 3, lunar: '十四', isCurrent: true },
+    { day: 4, lunar: '下元节', isCurrent: true }, // Screenshot says 下元节 roughly here or similar
+    { day: 5, lunar: '十六', isCurrent: true },
+    { day: 6, lunar: '十七', isCurrent: true },
+    
+    { day: 7, lunar: '十八', isCurrent: true },
+    { day: 8, lunar: '十九', isCurrent: true },
+    { day: 9, lunar: '二十', isCurrent: true },
+    { day: 10, lunar: '廿一', isCurrent: true },
+    { day: 11, lunar: '廿二', isCurrent: true },
+    { day: 12, lunar: '廿三', isCurrent: true, isSelected: true }, // The highlighted day
+    { day: 13, lunar: '廿四', isCurrent: true },
+    
+    { day: 14, lunar: '廿五', isCurrent: true },
+    { day: 15, lunar: '廿六', isCurrent: true },
+    { day: 16, lunar: '廿七', isCurrent: true },
+    { day: 17, lunar: '廿八', isCurrent: true },
+    { day: 18, lunar: '廿九', isCurrent: true },
+    { day: 19, lunar: '三十', isCurrent: true },
+    { day: 20, lunar: '初一', isCurrent: true },
+    
+    { day: 21, lunar: '初二', isCurrent: true },
+    { day: 22, lunar: '初三', isCurrent: true },
+    { day: 23, lunar: '初四', isCurrent: true },
+    { day: 24, lunar: '平安夜', isCurrent: true },
+    { day: 25, lunar: '圣诞节', isCurrent: true },
+    { day: 26, lunar: '初七', isCurrent: true },
+    { day: 27, lunar: '初八', isCurrent: true },
+    
+    { day: 28, lunar: '初九', isCurrent: true },
+    { day: 29, lunar: '初十', isCurrent: true },
+    { day: 30, lunar: '十一', isCurrent: true },
+    { day: 31, lunar: '十二', isCurrent: true },
+    { day: 1, lunar: '元旦节', isCurrent: false },
+    { day: 2, lunar: '十四', isCurrent: false },
+    { day: 3, lunar: '十五', isCurrent: false },
+  ];
+
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 relative h-full">
+    <div className="bg-white rounded-lg shadow-sm p-5 relative h-full flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-            <h3 className="font-bold text-gray-800 text-lg">我的日程</h3>
-            <span className="text-xs text-gray-400">课表日程温馨提示 <span className="border border-gray-400 rounded-full w-3 h-3 inline-flex items-center justify-center text-[10px]">i</span></span>
-        </div>
-        <div className="flex items-center gap-2">
-           <div className="bg-gray-100 text-dhu-red px-3 py-1 rounded text-xs font-bold">第14周</div>
-           <button className="text-gray-500 text-sm hover:text-dhu-red">订阅</button>
-           <button className="text-gray-500 text-sm hover:text-dhu-red">更多</button>
+        <h3 className="font-extrabold text-gray-800 text-xl tracking-wide">我的日程</h3>
+        <div className="flex items-center gap-3">
+           <div className="bg-red-50 text-dhu-red border border-red-100 px-3 py-1 rounded-md text-sm font-bold shadow-sm">
+             第14周
+           </div>
+           <button className="text-gray-500 text-sm hover:text-dhu-red font-medium">更多</button>
         </div>
       </div>
 
       {/* Month Navigation */}
-      <div className="flex items-center justify-between px-4 mb-4">
-          <button className="text-gray-400 hover:text-gray-700"><ChevronLeft size={20} /></button>
-          <h4 className="font-bold text-lg text-gray-800">2025年12月</h4>
-          <button className="text-gray-400 hover:text-gray-700"><ChevronRight size={20} /></button>
+      <div className="bg-red-50/50 rounded-lg p-2 mb-2">
+          <div className="flex items-center justify-between px-2">
+              <button className="text-gray-400 hover:text-gray-600 p-1"><ChevronLeft size={20} strokeWidth={3} /></button>
+              <h4 className="font-bold text-xl text-gray-800 tracking-tight">2025年12月</h4>
+              <button className="text-gray-400 hover:text-gray-600 p-1"><ChevronRight size={20} strokeWidth={3} /></button>
+          </div>
       </div>
 
-      {/* Calendar Grid Header */}
-      <div className="grid grid-cols-7 text-center mb-2">
-        {['日', '一', '二', '三', '四', '五', '六'].map((d) => (
-            <div key={d} className="text-gray-500 text-sm font-medium">{d}</div>
-        ))}
-      </div>
+      {/* Calendar Grid */}
+      <div className="flex-1 flex flex-col">
+          {/* Weekday Header */}
+          <div className="grid grid-cols-7 text-center mb-4 mt-2">
+            {['日', '一', '二', '三', '四', '五', '六'].map((d) => (
+                <div key={d} className="text-gray-500 text-base font-medium">{d}</div>
+            ))}
+          </div>
 
-      {/* Calendar Days */}
-      <div className="grid grid-cols-7 text-center gap-y-2">
-         {MOCK_CALENDAR_DAYS.map((day, idx) => (
-             <div key={idx} className={`flex flex-col items-center justify-start h-12 py-1 rounded-lg relative ${day.isToday ? 'bg-dhu-red text-white shadow-md' : 'hover:bg-gray-50'}`}>
-                <span className={`text-base font-medium leading-none mb-1 ${!day.isCurrentMonth ? 'text-gray-300' : ''}`}>
-                    {day.day}
-                </span>
-                <span className={`text-[10px] leading-none transform scale-90 ${day.isToday ? 'text-white' : 'text-gray-400'}`}>
-                    {day.lunar}
-                </span>
-                
-                {/* Holiday Badge */}
-                {day.isHoliday && (
-                    <span className="absolute top-0 right-0 bg-green-500 text-white text-[8px] px-0.5 rounded-sm">
-                        {day.holidayName}
-                    </span>
-                )}
-             </div>
-         ))}
+          {/* Days */}
+          <div className="grid grid-cols-7 text-center gap-y-3 gap-x-1">
+             {CALENDAR_DAYS.map((day, idx) => (
+                 <div key={idx} className="flex flex-col items-center justify-start h-14 relative group cursor-pointer">
+                    <div className={`
+                        w-10 h-10 flex flex-col items-center justify-center rounded-xl transition-all
+                        ${day.isSelected ? 'bg-dhu-red text-white shadow-md scale-110' : 'hover:bg-gray-100 text-gray-700'}
+                        ${!day.isCurrent && !day.isSelected ? 'opacity-30' : ''}
+                    `}>
+                        <span className={`text-lg font-bold leading-none mb-0.5 ${!day.isCurrent && !day.isSelected ? 'text-gray-400' : ''}`}>
+                            {day.day}
+                        </span>
+                        <span className={`text-[9px] leading-none transform ${day.isSelected ? 'text-white/90' : 'text-gray-400'}`}>
+                            {day.lunar}
+                        </span>
+                    </div>
+                 </div>
+             ))}
+          </div>
       </div>
-
-      {/* Bottom Status */}
-      <div className="mt-6">
-         <h3 className="font-bold text-gray-800 mb-2">您今日没有日程</h3>
-      </div>
-
-       {/* Floating Action Button */}
-       <button className="absolute bottom-4 right-4 bg-dhu-red text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-[#85021a] transition-colors">
-          <Plus size={24} />
-       </button>
     </div>
   );
 };
